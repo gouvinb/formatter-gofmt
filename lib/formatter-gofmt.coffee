@@ -22,6 +22,7 @@ module.exports = FormatterGofmt =
           title: 'Enable formatter for Golang'
           type: 'boolean'
           default: true
+          description: 'Need restart Atom.'
         arguments:
           title: 'Arguments passed to the formatter Golang'
           type: 'array'
@@ -32,19 +33,18 @@ module.exports = FormatterGofmt =
     {
       selector: '.source.go'
       getNewText: (text) ->
-        if atom.config.get 'formatter-gofmt.go.enable'
-          child_process = require 'child_process'
-          return new Promise (resolve, reject) ->
-            command = atom.config.get 'formatter-gofmt.a.executablePath'
-            args = atom.config.get 'formatter-gofmt.go.arguments'
-            toReturn = []
-            process = child_process.spawn(command, args, {})
-            process.stdout.on 'data', (data) -> toReturn.push data
-            process.stdin.write text
-            process.stdin.end()
-            process.on 'close', ->
-              if toReturn.length isnt 0
-                resolve(toReturn.join('\n'))
-              else
-                atom.notifications.addWarning("An error is occured");
-    }
+        child_process = require 'child_process'
+        return new Promise (resolve, reject) ->
+          command = atom.config.get 'formatter-gofmt.a.executablePath'
+          args = atom.config.get 'formatter-gofmt.go.arguments'
+          toReturn = []
+          process = child_process.spawn(command, args, {})
+          process.stdout.on 'data', (data) -> toReturn.push data
+          process.stdin.write text
+          process.stdin.end()
+          process.on 'close', ->
+            if toReturn.length isnt 0
+              resolve(toReturn.join('\n'))
+            else
+              atom.notifications.addWarning("An error is occured");
+    } if atom.config.get 'formatter-gofmt.go.enable'

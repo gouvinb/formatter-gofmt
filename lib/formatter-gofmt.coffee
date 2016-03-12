@@ -38,7 +38,9 @@ module.exports = FormatterGofmt =
           command = atom.config.get 'formatter-gofmt.a.executablePath'
           args = atom.config.get 'formatter-gofmt.go.arguments'
           toReturn = []
+          toReturnErr = []
           process = child_process.spawn(command, args, {})
+          process.stderr.on 'data', (data) -> toReturnErr.push data
           process.stdout.on 'data', (data) -> toReturn.push data
           process.stdin.write text
           process.stdin.end()
@@ -46,5 +48,5 @@ module.exports = FormatterGofmt =
             if toReturn.length isnt 0
               resolve(toReturn.join('\n'))
             else
-              atom.notifications.addWarning("An error is occured");
+              atom.notifications.addError('formatter-gofmt : error', {dismissable: true, detail: toReturnErr.join('\n')});
     } if atom.config.get 'formatter-gofmt.go.enable'

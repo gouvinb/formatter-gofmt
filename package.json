@@ -1,9 +1,15 @@
 {
   "name": "formatter-gofmt",
   "main": "./lib/formatter-gofmt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Formatter for Golang.",
-  "keywords": ["formatter", "golang", "go", "gofmt", "format"],
+  "keywords": [
+    "formatter",
+    "golang",
+    "go",
+    "gofmt",
+    "format"
+  ],
   "repository": "https://github.com/gouvinb/formatter-gofmt",
   "license": "MIT",
   "engines": {

@@ -2,8 +2,8 @@
   "name": "formatter-gofmt",
   "main": "./lib/formatter-gofmt",
   "version": "1.0.0",
-  "description": "A short description of your package",
-  "keywords": [],
+  "description": "Formatter for Golang.",
+  "keywords": ["formatter", "golang", "go", "gofmt", "format"],
   "repository": "https://github.com/gouvinb/formatter-gofmt",
   "license": "MIT",
   "engines": {
